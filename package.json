@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node ./server/server.js",
     "lint": "eslint .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ncu": "ncu",
+    "nsp": "nsp"
   },
   "repository": {
     "type": "git",
@@ -19,20 +21,27 @@
   },
   "homepage": "https://github.com/javi11/gamer-matcher#readme",
   "dependencies": {
-    "fastify": "^0.40.0",
-    "fastify-graphql": "^3.1.9",
+    "fastify": "^1.1.1",
+    "fastify-graphql": "^4.0.0",
     "fastify-plugin": "^0.2.2",
     "glob": "^7.1.2",
-    "graphql": "^0.13.1",
+    "graphql": "^0.12.0",
     "graphql-compose": "^3.0.4",
     "graphql-compose-mongoose": "^3.0.0",
-    "mongoose": "^5.0.6"
+    "mongoose": "^5.0.6",
+    "mongoose-timestamp": "^0.6.0"
   },
   "devDependencies": {
-    "eslint": "4.12.0",
+    "documentation": "^6.1.0",
+    "eslint": "4.18.2",
     "eslint-config-airbnb-base": "12.1.0",
     "eslint-config-prettier": "2.9.0",
-    "eslint-plugin-import": "2.8.0",
-    "eslint-plugin-prettier": "2.3.1"
+    "eslint-plugin-import": "2.9.0",
+    "eslint-plugin-prettier": "2.6.0",
+    "jest": "^22.4.2",
+    "npm-check-updates": "^2.14.1",
+    "nsp": "^3.2.1",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.11.1"
   }
 }
