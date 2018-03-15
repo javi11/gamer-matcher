@@ -1,4 +1,4 @@
->h1>Gamer Matcher API</h1>
+<h1>Gamer Matcher API</h1>
 
 ## Contributor
 
