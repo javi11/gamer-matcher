@@ -39,7 +39,7 @@ if (!isProduction) {
   fastify.register(playground);
 }
 
-fastify.listen(process.env.PORT || 8080, process.env.IP, err => {
+fastify.listen(process.env.PORT || 8080, '0.0.0.0', err => {
   if (err) {
     throw err;
   }
