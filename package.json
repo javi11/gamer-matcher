@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./server/server.js",
     "lint": "eslint .",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"No test specified\"",
     "ncu": "ncu",
     "nsp": "nsp"
   },
