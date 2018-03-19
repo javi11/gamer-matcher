@@ -27,7 +27,7 @@ fastify.register(graphiqlFastify, {
   }
 });
 
-fastify.listen(process.env.PORT || 8080, err => {
+fastify.listen(process.env.PORT || 8080, '0.0.0.0', err => {
   if (err) {
     throw err;
   }
