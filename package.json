@@ -9,6 +9,9 @@
     "ncu": "ncu",
     "nsp": "nsp"
   },
+  "engines": {
+    "node": ">=8.10.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/javi11/gamer-matcher-api.git"
