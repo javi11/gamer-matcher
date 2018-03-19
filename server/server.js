@@ -6,7 +6,7 @@ const schema = require('./schema');
 fastify.register(
   fastifyMongoose,
   {
-    uri: `mongodb://${process.env.IP || 'localhost'}/gamer-matcher`
+    uri: process.env.MONGODB_URI || `mongodb://${process.env.IP || 'localhost'}/gamer-matcher`
   },
   err => {
     if (err) throw err;
