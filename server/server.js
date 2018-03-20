@@ -1,36 +1,52 @@
-const fastify = require('fastify')();
-const { graphiqlFastify, graphqlFastify } = require('fastify-graphql');
+const fastify = require('fastify')({ logger: true });
+const isUndefined = require('lodash/isUndefined');
+const { graphqlFastify } = require('fastify-graphql');
+const { formatError } = require('apollo-errors');
+const fastifyBoom = require('fastify-boom');
 const fastifyMongoose = require('./plugins/mongoose');
-const schema = require('./schema');
+const auth = require('./plugins/auth/index');
+const playground = require('./plugins/playground');
+const schema = require('./graphql/schema');
+const config = require('./config/config.json');
+const { User } = require('./models/user');
+
+const isProduction = process.env.NODE_ENV === 'production';
+const enablePlayground = !isUndefined(process.env.ENABLE_PLAYGROUND)
+  ? process.env.ENABLE_PLAYGROUND
+  : true;
 
 fastify.register(
   fastifyMongoose,
   {
-    uri: `mongodb://${process.env.IP || 'localhost'}/gamer-matcher`
+    uri: process.env.MONGODB_URI || `mongodb://${process.env.IP || 'localhost'}/gamer-matcher`
   },
   err => {
     if (err) throw err;
   }
 );
 
+fastify.register(fastifyBoom);
+fastify.register(auth, { ...config.auth, UserModel: User });
 fastify.register(graphqlFastify, {
   prefix: '/graphql',
-  graphql: {
-    schema
-  }
+  graphql: req => ({
+    formatError,
+    schema,
+    tracing: !isProduction,
+    context: {
+      user: req.user()
+    }
+  })
 });
 
-fastify.register(graphiqlFastify, {
-  prefix: '/graphiql',
-  graphiql: {
-    endpointURL: '/graphql'
-  }
-});
+if (enablePlayground === true) {
+  fastify.register(playground);
+}
 
-fastify.listen(8080, process.env.IP, err => {
+fastify.listen(process.env.PORT || 8080, '0.0.0.0', err => {
   if (err) {
     throw err;
   }
-
+  // eslint-disable-next-line no-console
   console.log(`server listening on ${fastify.server.address().port}`);
 });

@@ -1,0 +1,8 @@
+{
+  "auth": {
+    "issuer": "gamer-matcher",
+    "audience": "gamer-matcher.es",
+    "accessTokenTTL": 3600,
+    "refreshTokenTTL": 15780000
+  }
+}

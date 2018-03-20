@@ -15,13 +15,28 @@ const UserSchema = new Schema({
   country: String,
   emailVerified: {
     type: Boolean,
-    default: false
+    default: false,
+    select: false
   },
   gender: {
     type: String,
     enum: ['male', 'female', 'empty']
   },
-  referedUsers: [{ type: Schema.Types.ObjectId, ref: 'UserSchema' }]
+  referedUsers: [{ type: Schema.Types.ObjectId, ref: 'UserSchema' }],
+  provider: {
+    type: String,
+    select: false
+  },
+  meta: {
+    id: {
+      type: String,
+      select: false
+    },
+    token: {
+      type: String,
+      select: false
+    }
+  }
 });
 UserSchema.plugin(timestamps);
 
@@ -35,7 +50,8 @@ UserSchema.pre('save', function (next){
 const User = mongoose.model('User', UserSchema);
 
 const UserTC = composeWithMongoose(User);
-UserTC.removeField(['password', 'salt']);
+
+UserTC.removeField(['password', 'meta', 'emailVerified', 'provider', 'salt']);
 module.exports = {
   UserSchema,
   User,
