@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./server/server.js",
     "lint": "eslint .",
-    "test": "echo \"No test specified\"",
+    "test": "npm run lint && echo \"No test specified\"",
     "ncu": "ncu",
     "nsp": "nsp"
   },
@@ -36,14 +36,24 @@
     "prettier": "^1.11.1"
   },
   "dependencies": {
+    "ajv": "^6.2.1",
+    "apollo-errors": "1.5.1",
+    "bcrypt": "^1.0.3",
+    "boom": "^7.2.0",
     "fastify": "^1.1.1",
+    "fastify-boom": "^0.1.0",
     "fastify-graphql": "^4.0.0",
     "fastify-plugin": "^0.2.2",
     "glob": "^7.1.2",
     "graphql": "^0.12.0",
     "graphql-compose": "^3.0.4",
     "graphql-compose-mongoose": "^3.0.0",
+    "graphql-playground-html": "^1.5.5",
+    "jsonwebtoken": "^8.2.0",
+    "lodash": "^4.17.5",
     "mongoose": "^5.0.6",
-    "mongoose-timestamp": "^0.6.0"
+    "mongoose-timestamp": "^0.6.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0"
   }
 }

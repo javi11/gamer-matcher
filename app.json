@@ -1,7 +1,6 @@
 {
   "name": "gamer-matcher-api",
-  "scripts": {
-  },
+  "scripts": {},
   "env": {
     "MONGODB_URI": {
       "required": true
