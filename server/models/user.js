@@ -41,7 +41,7 @@ const UserSchema = new Schema({
 UserSchema.plugin(timestamps);
 
 
-UserSchema.pre('save', function (next){
+UserSchema.pre('save', function saveFn(next){
     this.salt = bcrypt.genSaltSync(10);
     this.password = bcrypt.hashSync(this.password, this.salt);
     return next();
