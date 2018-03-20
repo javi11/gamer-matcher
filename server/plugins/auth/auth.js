@@ -4,14 +4,14 @@ const { unauthorized } = require('boom');
 const { generateToken } = require('./helper');
 
 module.exports = class Auth {
-  constructor(options) {
-    this.alg = options.alg;
-    this.secret = options.secret;
-    this.issuer = options.issuer;
-    this.audience = options.audience;
-    this.UserModel = options.UserModel;
-    this.accessTokenTTL = options.accessTokenTTL;
-    this.refreshTokenTTL = options.refreshTokenTTL;
+  constructor({alg = 'HS256', secret, issuer, audience, UserModel, accessTokenTTL, refreshTokenTTL}) {
+    this.alg = alg;
+    this.secret = secret;
+    this.issuer = issuer;
+    this.audience = audience;
+    this.UserModel = UserModel;
+    this.accessTokenTTL = accessTokenTTL;
+    this.refreshTokenTTL = refreshTokenTTL;
   }
 
   static isValidGrantType({ grant_type: grantType, password, username }) {

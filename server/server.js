@@ -1,4 +1,5 @@
 const fastify = require('fastify')({ logger: true });
+const isUndefined = require('lodash/isUndefined');
 const { graphqlFastify } = require('fastify-graphql');
 const { formatError } = require('apollo-errors');
 const fastifyBoom = require('fastify-boom');
@@ -10,6 +11,9 @@ const config = require('./config/config.json');
 const { User } = require('./models/user');
 
 const isProduction = process.env.NODE_ENV === 'production';
+const enablePlayground = !isUndefined(process.env.ENABLE_PLAYGROUND)
+  ? process.env.ENABLE_PLAYGROUND
+  : true;
 
 fastify.register(
   fastifyMongoose,
@@ -35,7 +39,7 @@ fastify.register(graphqlFastify, {
   })
 });
 
-if (!isProduction) {
+if (enablePlayground === true) {
   fastify.register(playground);
 }
 
