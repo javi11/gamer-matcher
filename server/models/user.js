@@ -1,13 +1,16 @@
 const mongoose = require('mongoose');
 const timestamps = require('mongoose-timestamp');
+const bcrypt = require('bcrypt');
+
 const { composeWithMongoose } = require('graphql-compose-mongoose');
 
 const { Schema } = mongoose;
 const UserSchema = new Schema({
-  name: String,
-  email: String,
+  salt: String,
+  name: {type: String, select: false},
+  email: {type: String, unique: true, required: true},
   avatar: String,
-  password: String,
+  password: {type: String, select: false, required: true},
   birthDate: Date,
   country: String,
   emailVerified: {
@@ -22,8 +25,17 @@ const UserSchema = new Schema({
 });
 UserSchema.plugin(timestamps);
 
+
+UserSchema.pre('save', function (next){
+    this.salt = bcrypt.genSaltSync(10);
+    this.password = bcrypt.hashSync(this.password, this.salt);
+    return next();
+});
+
 const User = mongoose.model('User', UserSchema);
+
 const UserTC = composeWithMongoose(User);
+UserTC.removeField(['password', 'salt']);
 module.exports = {
   UserSchema,
   User,
