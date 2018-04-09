@@ -13,8 +13,17 @@ module.exports = GQC => {
 
   GQC.rootMutation().addFields({
     ...authenticatedAccess({
-      userCreate: UserTC.getResolver('createOne').removeArg(['emailVerified', 'referedUsers', 'salt']),
-      userUpdateById: UserTC.getResolver('updateById').removeArg(['emailVerified', 'referedUsers','password', 'salt'])
+      userCreate: UserTC.getResolver('createOne').removeArg([
+        'emailVerified',
+        'referedUsers',
+        'salt'
+      ]),
+      userUpdateById: UserTC.getResolver('updateById').removeArg([
+        'record.emailVerified',
+        'record.referedUsers',
+        'record.password',
+        'record.salt'
+      ])
     })
   });
 };
