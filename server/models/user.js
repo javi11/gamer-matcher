@@ -7,10 +7,10 @@ const { composeWithMongoose } = require('graphql-compose-mongoose');
 const { Schema } = mongoose;
 const UserSchema = new Schema({
   salt: String,
-  name: {type: String, select: false},
-  email: {type: String, unique: true, required: true},
+  name: { type: String, select: false },
+  email: { type: String, unique: true, required: true },
   avatar: String,
-  password: {type: String, select: false, required: true},
+  password: { type: String, select: false, required: true },
   birthDate: Date,
   country: String,
   emailVerified: {
@@ -40,11 +40,10 @@ const UserSchema = new Schema({
 });
 UserSchema.plugin(timestamps);
 
-
-UserSchema.pre('save', function saveFn(next){
-    this.salt = bcrypt.genSaltSync(10);
-    this.password = bcrypt.hashSync(this.password, this.salt);
-    return next();
+UserSchema.pre('save', function saveFn(next) {
+  this.salt = bcrypt.genSaltSync(10);
+  this.password = bcrypt.hashSync(this.password, this.salt);
+  return next();
 });
 
 const User = mongoose.model('User', UserSchema);
