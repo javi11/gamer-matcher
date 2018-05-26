@@ -4,7 +4,15 @@ const { unauthorized } = require('boom');
 const { generateToken } = require('./helper');
 
 module.exports = class Auth {
-  constructor({alg = 'HS256', secret, issuer, audience, UserModel, accessTokenTTL, refreshTokenTTL}) {
+  constructor({
+    alg = 'HS256',
+    secret,
+    issuer,
+    audience,
+    UserModel,
+    accessTokenTTL,
+    refreshTokenTTL
+  }) {
     this.alg = alg;
     this.secret = secret;
     this.issuer = issuer;
